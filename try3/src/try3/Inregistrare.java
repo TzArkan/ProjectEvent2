@@ -60,10 +60,10 @@ public class Inregistrare extends JFrame {
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
-
+ // Stocheaza datele utilizatorului
     private void storeUserData() {
         DateUtilizator du=new DateUtilizator(t1.getText(),t3.getText(),new String(t2.getPassword()));
-        
+        // Verifica daca campurile sunt goale
         if (du.getNume().isEmpty() || du.getParola().isEmpty() || du.getEmail().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Introduceti numele contului, adresa de email si parola.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
@@ -74,7 +74,7 @@ public class Inregistrare extends JFrame {
         if (verificareUtilizatorUnic(du.getNume(),conturiUtilizatoriDetalii)==false) {
             return;
         }
-
+// Inregistreaza utilizatorul in fisier
         try (FileWriter fw = new FileWriter(conturiUtilizatoriDetalii, true)) {
             fw.write(du.getNume() + "," + du.getParola() + "," + du.getEmail() + ",Utilizator\n");
             fw.flush(); // Ensure data is written immediately
@@ -99,7 +99,7 @@ public class Inregistrare extends JFrame {
             JOptionPane.showMessageDialog(this, "A aparut o eroare la inregistrarea datelor.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
-
+ // Verifica daca utilizatorul este unic
     public boolean verificareUtilizatorUnic(String username, String numeFisier) {
         try (BufferedReader reader = new BufferedReader(new FileReader(numeFisier))) {
             String line;

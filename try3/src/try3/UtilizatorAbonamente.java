@@ -51,40 +51,41 @@ public class UtilizatorAbonamente extends JFrame {
         e.printStackTrace();
     }
 }
+// Metoda pentru achiziționarea unui bilet pentru un eveniment
 
 public void cumparaBilet(int linie, String username) {
-    File fisier1 = new File(username + "Evenimente.txt");
+    File fisier1 = new File(username + "Evenimente.txt");// Inițializarea unui obiect File pentru fișierul de evenimente asociat utilizatorului
     
-    String newLine;
-    int nrBileteDisponibile=0;
-    int nrBileteVandute=0;
-    String codBilet="";
+    String newLine;// Declarația unei variabile pentru stocarea noii linii de înlocuit în fișier
+    int nrBileteDisponibile=0; // Inițializarea unei variabile pentru numărul de bilete disponibile
+    int nrBileteVandute=0;// Inițializarea unei variabile pentru numărul de bilete vândute
+    String codBilet=""; // Inițializarea unei variabile pentru codul biletului
     try (BufferedReader reader1 = new BufferedReader(new FileReader(fisier1))) {
         StringBuilder fileContent = new StringBuilder();
         String line;
         
-        // Read the first line and append it to fileContent
+        // Citirea primei linii (categorii) și adăugarea acesteia în StringBuilder
         line = reader1.readLine();
         fileContent.append(line).append("\n");
-        int budget = Integer.parseInt(line.trim());
+        int budget = Integer.parseInt(line.trim());// Parsarea bugetului utilizatorului
 
-        // Read the second line (the budget line)
+        // Citirea celei de-a doua linii (buget) și adăugarea acesteia în StringBuilder
         line = reader1.readLine();
         fileContent.append(line).append("\n");
         
         // Initialize line counter
         int currentLine = 1;
         
-        while ((line = reader1.readLine()) != null) {
+        while ((line = reader1.readLine()) != null) {// Citirea liniilor rămase din fișier
             currentLine++;
             
-            if (currentLine == linie + 2) {  // Adjust for the offset (first two lines)
-                String[] parts = line.split("\\$");
+            if (currentLine == linie + 2) {  // Ajustarea pentru compensarea offsetului (primele două linii)
+                String[] parts = line.split("\\$");// Separarea liniei în componente folosind caracterul $
                 
-                // Update budget by subtracting the s[5] value
+                               // Actualizarea bugetului prin scăderea valorii din coloana 6
                 int cost = Integer.parseInt(parts[6].trim());
                 budget -= cost;
-                // Update s[6] and s[7]
+               // Actualizarea coloanelor 7 și 8
                 nrBileteDisponibile = Integer.parseInt(parts[7].trim());
                 nrBileteVandute = Integer.parseInt(parts[8].trim());
                 int nrBileteAchizitionate = Integer.parseInt(parts[9].trim());
@@ -96,7 +97,7 @@ public void cumparaBilet(int linie, String username) {
                 codBilet=parts[0];
                 salveazaBilet(username,nrBileteVandute,parts[0]);
                 
-                // Construct the new line
+                // Construirea noii linii
                 newLine = parts[0] + "$" + parts[1] + "$" + parts[2] + "$" + parts[3] + "$" + parts[4] + "$" + parts[5] + "$" +  parts[6] + "$" + nrBileteDisponibile + "$" + nrBileteVandute + "$" + nrBileteAchizitionate;
                 fileContent.append(newLine).append("\n");
             } else {
@@ -104,11 +105,11 @@ public void cumparaBilet(int linie, String username) {
             }
         }
         
-        fileContent.delete(0, fileContent.indexOf("\n") + 1);
-        fileContent.insert(0, budget + "\n");
-        String finalContent = fileContent.toString();
+        fileContent.delete(0, fileContent.indexOf("\n") + 1);// Ștergerea primei linii din StringBuilder (bugetul)
+        fileContent.insert(0, budget + "\n");// Actualizarea bugetului în șirul de caractere
+        String finalContent = fileContent.toString();// Obținerea conținutului final al fișierului sub formă de șir de caractere
 
-        // Write the updated content back to the file
+       // Scrierea conținutului actualizat înapoi în fișier
         try (BufferedWriter writer1 = new BufferedWriter(new FileWriter(fisier1))) {
             writer1.write(finalContent);
             JOptionPane.showMessageDialog(null, "Bilet cumparat", "Succes", JOptionPane.INFORMATION_MESSAGE);
@@ -122,20 +123,20 @@ public void cumparaBilet(int linie, String username) {
         JOptionPane.showMessageDialog(null, "Formatul numerelor din fisier este incorect.", "Error", JOptionPane.ERROR_MESSAGE);
     }
 
-    File fisier2 = new File("dateEvenimente.txt");
+    File fisier2 = new File("dateEvenimente.txt");// Inițializarea unui obiect File pentru fișierul de dateEvenimente
 try (BufferedReader reader2 = new BufferedReader(new FileReader(fisier2))) {
     StringBuilder fileContent = new StringBuilder();
     String line;
     
-    // Read the first line and append it to fileContent
+ // Citirea primei linii și adăugarea acesteia în StringBuilder
     line = reader2.readLine();
     fileContent.append(line).append("\n");
     
     // Initialize line counter
-    while ((line = reader2.readLine()) != null) {
+    while ((line = reader2.readLine()) != null) {// Citirea liniilor rămase din fișier
         String[] parts = line.split("\\$");
         if (codBilet.equals(parts[0])) {
-            // Construct the new line
+             // Construirea noii linii
             newLine = parts[0] + "$" + parts[1] + "$" + parts[2] + "$" + parts[3] + "$" + parts[4] + "$" + parts[5] + "$" +  parts[6] + "$" + nrBileteDisponibile + "$" + nrBileteVandute;
             fileContent.append(newLine).append("\n");
         } else {
@@ -145,7 +146,7 @@ try (BufferedReader reader2 = new BufferedReader(new FileReader(fisier2))) {
 
     String finalContent = fileContent.toString();
 
-    // Write the updated content back to the file
+     // Scrierea conținutului actualizat înapoi în fișier
     try (BufferedWriter writer2 = new BufferedWriter(new FileWriter(fisier2))) { // Corrected to write to fisier2
         writer2.write(finalContent);
         } catch (IOException e) {
@@ -158,6 +159,7 @@ try (BufferedReader reader2 = new BufferedReader(new FileReader(fisier2))) {
     JOptionPane.showMessageDialog(null, "Formatul numerelor din fisier este incorect.", "Error", JOptionPane.ERROR_MESSAGE);
 }
 }
+// Metoda pentru încărcarea datelor din fișier asociat utilizatorului în tabel
 
  public void incarcaDinFisier(String username) {
     File fisier = new File(username+"Evenimente.txt");
