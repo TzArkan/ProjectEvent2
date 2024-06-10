@@ -60,6 +60,7 @@ public class LoginAdmin extends JFrame implements ILogin {
     private void login() {
         String enteredUsername = t1.getText();
         String enteredPassword = new String(t2.getPassword());
+        
         String rol;
         // Verifică dacă câmpurile sunt goale
         if (enteredUsername.isEmpty() || enteredPassword.isEmpty()) {

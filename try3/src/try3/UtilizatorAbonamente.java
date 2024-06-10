@@ -147,7 +147,7 @@ try (BufferedReader reader2 = new BufferedReader(new FileReader(fisier2))) {
     String finalContent = fileContent.toString();
 
      // Scrierea conținutului actualizat înapoi în fișier
-    try (BufferedWriter writer2 = new BufferedWriter(new FileWriter(fisier2))) { // Corrected to write to fisier2
+    try (BufferedWriter writer2 = new BufferedWriter(new FileWriter(fisier2))) { 
         writer2.write(finalContent);
         } catch (IOException e) {
         JOptionPane.showMessageDialog(null, "A aparut o eroare la inregistrarea datelor.", "Error", JOptionPane.ERROR_MESSAGE);
