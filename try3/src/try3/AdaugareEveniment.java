@@ -15,7 +15,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
-//dawdawwad
+
 public class AdaugareEveniment extends JFrame implements IGesEveniment {
     private JLabel[] l;// Etichete pentru câmpurile de intrare
     private JLabel l0, pr;// Etichete suplimentare

@@ -142,7 +142,7 @@ public class ModificareEveniment extends JFrame implements IGesEveniment {
                 o.add(new JLabel("   Introduceti ora dupa formatul: HH:mm"));
                 o.setBounds(200,200, 270, 100);
                 o.setVisible(true);
-            }//catch
+            }
         }//metoda focusLost
         
        }

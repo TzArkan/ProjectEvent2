@@ -8,26 +8,26 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class AdminOptiuni extends JFrame{
+public class AdminOptiuni extends JFrame{// Declară clasa AdminOptiuni care extinde JFrame
     private JFrame fereastraVeche,f,i,j;
     private JButton b1, b2, b3, b4, b5, b6;
     private ControlButoane cb;
    
 
-    public class ControlButoane implements ActionListener {
-        private JFrame g,h;
+    public class ControlButoane implements ActionListener {// Definire clasă internă pentru controlul butoanelor
+        private JFrame g,h;// Declară ferestrele
 
-        public void actionPerformed(ActionEvent e) {
+        public void actionPerformed(ActionEvent e) {// Definirea acțiunii la apăsarea butonului
             
 
-            if (e.getSource() == b2) {
+            if (e.getSource() == b2) {// Dacă sursa evenimentului este butonul b2
                 if (g == null) g = new GestionareCategoriiEvenimente (AdminOptiuni.this);
-                int oX=350;
-                int oY=350;
-                g.setSize(600,150);
-                g.setLocation(oX, oY);
-                g.setVisible(true);
-                setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                int oX=350;// Setează coordonata X
+                int oY=350;// Setează coordonata Y
+                g.setSize(600,150);// Setează dimensiunea ferestrei
+                g.setLocation(oX, oY);// Setează locația ferestrei
+                g.setVisible(true);// Face fereastra vizibilă
+                setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);// Setează comportamentul la închiderea ferestrei
             }
 
             if (e.getSource() == b3) {
@@ -46,7 +46,7 @@ public class AdminOptiuni extends JFrame{
     }
 
     public AdminOptiuni(JFrame fereastraVeche, String username, String rol) {
-        super(rol+": "+username);
+        super(rol+": "+username);// Setează titlul ferestrei
         this.fereastraVeche = fereastraVeche;
         JPanel p1 = new JPanel(new GridLayout(5, 1));
         
